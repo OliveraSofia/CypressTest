@@ -84,7 +84,7 @@ describe('Load Page', () => {
     })
 
 
-    it.only('Add to cart item if it is avilable', () =>{
+    it('Add to cart item if it is avilable', () =>{
       cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
       cy.wait(500)
       cy.get(SEARCH.MAIN_SEARCH_BAR).click()
