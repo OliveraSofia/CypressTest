@@ -12,6 +12,7 @@ const LIST = {
 
   LIST_RESULT_PAGE_TWO : '[href$=sr_pg_2]',
   LIST_RESULT_ITEM_TWO : '[data-image-index=3]', 
+  LIST_RESULT_ITEM_FIVE : '[data-image-index=5]',
   LIST_RESULT_ITEM_SEVENTEEN : '[data-image-index=17]',
   //npm install --save-dev cypress@8.3.1
 };
@@ -44,7 +45,7 @@ describe('Load Page', () => {
    it('US1 :Check cart items', () => {
 
     cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('0')
-    cy.get(SEARCH.MAIN_SEARCH_BAR).type('doll')
+    cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
     cy.wait(500)
     cy.get(SEARCH.MAIN_SEARCH_BAR).click()
     cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
@@ -84,23 +85,24 @@ describe('Load Page', () => {
     })
 
 
-    it('Add to cart item if it is avilable', () =>{
+    it('US3: Add to cart item if it is avilable if not go back', () => {
       cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
       cy.wait(500)
       cy.get(SEARCH.MAIN_SEARCH_BAR).click()
       cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
       cy.get(LIST.LIST_RESULT_ITEM_TWO).click()
 
+      cy.get("body").then($body => {
+        if ($body.find('#add-to-cart-button').length > 0) {   
+            //evaluates as true
+            cy.get('#add-to-cart-button').click()
+        } else {
+          cy.go('back')
+        }
 
-      if (cy.get('#add-to-cart-button', { timeout: 0 }).should('not.exist')) {
-        cy.go('back')
-      } else {
-        cy.contains(button1).click()
-      }
-  
-      
-})
-  
+      });
+
+    })
 
 
       
