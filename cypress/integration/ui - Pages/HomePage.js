@@ -13,7 +13,7 @@ const LIST = {
   LIST_RESULT_PAGE_TWO : '[href$=sr_pg_2]',
   LIST_RESULT_ITEM_TWO : '[data-image-index=3]', 
   LIST_RESULT_ITEM_FIVE : '[data-image-index=5]',
-  LIST_RESULT_ITEM_SEVENTEEN : '[data-image-index=17]',
+  LIST_RESULT_ITEM_SEVENTEEN : '[data-image-index=93]',
   LIST_SEARCH_ITEMS_XPATH : '//*[@class="a-size-medium a-color-base a-text-normal"]'
 };
 
@@ -23,16 +23,31 @@ const ITEM = {
     ADDED_TO_CART_MESSAGE_CROSS : '#attach-close_sideSheet-link',
     ITEM_DELIVERY_LOCATION : '#contextualIngressPtLabel_deliveryShortLine > :nth-child(2)'
     
-
 };
 
 const MAINPAGE = {
-
   
   LOCATION : '#glow-ingress-line2',
   CART_ITEM_NUMBERS : '#nav-cart-count'
 };
 
+//functions: 
+
+const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
+
+let firstText
+let secondText
+
+//New command for repetitive steps.
+Cypress.Commands.add('searchItem', (value) => {
+  cy.get(SEARCH.MAIN_SEARCH_BAR).type(value)
+  cy.wait(500)
+  cy.get(SEARCH.MAIN_SEARCH_BAR).click()
+  cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
+})
+
+
+//Tests
 
 describe('Load Page', () => {
     beforeEach(() => {
@@ -42,13 +57,11 @@ describe('Load Page', () => {
 
    })
 
+ //paginacion
    it('US1 :Check cart items', () => {
-
+    
+    cy.searchItem('dragon')
     cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('0')
-    cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
-    cy.wait(500)
-    cy.get(SEARCH.MAIN_SEARCH_BAR).click()
-    cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
     cy.get(MAINPAGE.LOCATION).should('be.visible')
     cy.get(LIST.LIST_RESULT_PAGE_TWO).click()
     cy.get(LIST.LIST_RESULT_ITEM_SEVENTEEN).click()
@@ -59,12 +72,8 @@ describe('Load Page', () => {
   })
 
   it('US2 Select last items by xpath', () =>{
-    cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
-    cy.wait(500)
-    cy.get(SEARCH.MAIN_SEARCH_BAR).click()
-    cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
+    cy.searchItem('dragon')
     cy.xpath('//*[@class="a-size-medium a-color-base a-text-normal"]')
-     // .xpath('')
       .last()
       .click()
 
@@ -72,19 +81,14 @@ describe('Load Page', () => {
 
   it('US3: expect matches delivery Location', () => {
     
-    cy.get(SEARCH.MAIN_SEARCH_BAR).click()
-    cy.get(SEARCH.MAIN_SEARCH_BAR).type('doll')
-    cy.wait(500)
-    cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
+    cy.searchItem('doll')
     cy.xpath(LIST.LIST_SEARCH_ITEMS_XPATH)
-    // .xpath('')
      .first()
      .click()
 
-    const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
+     //make it ut, github actions
 
-    let firstText
-    let secondText
+
 
     cy.get(MAINPAGE.LOCATION)
       .then(($first) => {
@@ -99,14 +103,12 @@ describe('Load Page', () => {
 
     })
 
+    //merge actions 
+    //run unit test validate code
 
     it('US4: Add to cart item if it is avilable if not go back', () => {
-      cy.get(SEARCH.MAIN_SEARCH_BAR).type('dragon')
-      cy.wait(500)
-      cy.get(SEARCH.MAIN_SEARCH_BAR).click()
-      cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
+      cy.searchItem('dragon')
       cy.xpath(LIST.LIST_SEARCH_ITEMS_XPATH)
-      // .xpath('')
        .last()
        .click()
 
@@ -123,5 +125,12 @@ describe('Load Page', () => {
     })
 
 
+//pom o paradigma
+// exp foward
 
+//mismo tc para api y para ui (actions)
 })
+
+
+
+
