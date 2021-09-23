@@ -33,10 +33,7 @@ const MAINPAGE = {
 
 //functions: 
 
-export const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
 
-let firstText
-let secondText
 
 
 //Tests
@@ -50,7 +47,7 @@ describe('Load Page', () => {
    })
 
  //paginacion
-   it.only('US1 :Check cart items', () => {
+   it('US1 :Check cart items', () => {
     
     cy.searchItem('toy')
     cy.wait(500)
@@ -83,19 +80,8 @@ describe('Load Page', () => {
      .click()
 
      //make it ut, github actions
-
-
-
-    cy.get(MAINPAGE.LOCATION)
-      .then(($first) => {
-        firstText = normalizeText($first.text())
-      })
-
-      cy.get(ITEM.ITEM_DELIVERY_LOCATION)
-      .then(($second) => {
-         secondText = normalizeText($second.text())
-         expect(secondText, 'Item Delyvery').to.equal(firstText)
-      })
+    cy.compareText(MAINPAGE.LOCATION,ITEM.ITEM_DELIVERY_LOCATION)
+    
 
     })
 
