@@ -33,18 +33,10 @@ const MAINPAGE = {
 
 //functions: 
 
-const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
+export const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
 
 let firstText
 let secondText
-
-//New command for repetitive steps.
-Cypress.Commands.add('searchItem', (value) => {
-  cy.get(SEARCH.MAIN_SEARCH_BAR).type(value)
-  cy.wait(500)
-  cy.get(SEARCH.MAIN_SEARCH_BAR).click()
-  cy.get(SEARCH.MAIN_SEARCH_BUTTON).click()
-})
 
 
 //Tests
@@ -58,13 +50,17 @@ describe('Load Page', () => {
    })
 
  //paginacion
-   it('US1 :Check cart items', () => {
+   it.only('US1 :Check cart items', () => {
     
-    cy.searchItem('dragon')
+    cy.searchItem('toy')
+    cy.wait(500)
     cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('0')
     cy.get(MAINPAGE.LOCATION).should('be.visible')
     cy.get(LIST.LIST_RESULT_PAGE_TWO).click()
-    cy.get(LIST.LIST_RESULT_ITEM_SEVENTEEN).click()
+    //cy.get(LIST.LIST_RESULT_ITEM_SEVENTEEN).click()
+    cy.xpath('//*[@class="a-size-medium a-color-base a-text-normal"]')
+    .first()
+    .click()
     cy.get(ITEM.ADD_TO_CART_BUTTON).click()
     cy.get(ITEM.ADDED_TO_CART_MESSAGE_CROSS).click()
     cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('1')
@@ -103,7 +99,6 @@ describe('Load Page', () => {
 
     })
 
-    //merge actions 
     //run unit test validate code
 
     it('US4: Add to cart item if it is avilable if not go back', () => {
