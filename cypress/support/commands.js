@@ -1,3 +1,4 @@
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+//New command for repetitive steps.
+Cypress.Commands.add('searchItem', (value) => {
+    cy.get('#twotabsearchtextbox').type(value)
+    cy.wait(500)
+    cy.get('#twotabsearchtextbox').click()
+    cy.get('#nav-search-submit-button').click()
+  })
