@@ -59,14 +59,25 @@ describe('Load Page', () => {
     .first()
     .click()
     cy.get(ITEM.ADD_TO_CART_BUTTON).click()
-    cy.get(ITEM.ADDED_TO_CART_MESSAGE_CROSS).click()
-    cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+
+    cy.get("body").then($body => {
+      if ($body.find(ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
+          //evaluates as true
+          cy.get(ITEM.AADDED_TO_CART_MESSAGE_CROSS ).click()
+          cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+      } else {
+        cy.get(MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+      }
+
+    });
+ 
+    
     
   })
 
   it('US2 Select last items by xpath', () =>{
     cy.searchItem('dragon')
-    cy.xpath('//*[@class="a-size-medium a-color-base a-text-normal"]')
+    cy.xpath(LIST.LIST_SEARCH_ITEMS_XPATH)
       .last()
       .click()
 
