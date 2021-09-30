@@ -2,6 +2,10 @@
   "name": "cypresstest",
   "version": "1.0.0",
   "main": "index.js",
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "cypress/integration/BDD"
+  },
   "scripts": {
     "clean:reports": "rm -R -f cypress/reports && mkdir cypress/reports && mkdir cypress/reports/mochareports",
     "pretest": "npm run clean:reports",
@@ -14,19 +18,22 @@
   "author": "solvera",
   "license": "ISC",
   "dependencies": {
-    "webpack": "^5.53.0"
+    "webpack": "^4.44.2"
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "cypress": "^8.5.0",
+    "@cypress/webpack-preprocessor": "^4.0.2",
     "cypress-browser-permissions": "^1.0.5",
+    "cypress-cucumber-preprocessor": "latest",
     "cypress-multi-reporters": "^1.5.0",
     "cypress-xpath": "^1.6.2",
     "mocha": "^9.1.1",
     "mochawesome": "^6.2.2",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.2.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "webpack": "^4.28.2"
   },
   "keywords": [
     "test"
