@@ -19,7 +19,7 @@ export const ITEM = {
 
     ADD_TO_CART_BUTTON  : '#add-to-cart-button',
     ADDED_TO_CART_MESSAGE_CROSS : '#attach-close_sideSheet-link',
-    ITEM_DELIVERY_LOCATION : '#contextualIngressPtLabel_deliveryShortLine > :nth-child(2)'
+    ITEM_DELIVERY_LOCATION : '//*[@id="contextualIngressPtLabel_deliveryShortLine"]/span[2]'
     
 };
 

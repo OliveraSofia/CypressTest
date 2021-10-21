@@ -28,26 +28,37 @@ Given('I Open the amazon Page and wait to load', () => {
     cy.wait(500)
   })
 
-  And('I verify the cart and the locations state', () =>{
+  And('I verify the cart and the locations are visible', () =>{
     cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('0')
     cy.get(element.MAINPAGE.LOCATION).should('be.visible')
   })
 
-  And('I select the first element od the search results', () =>{
-    cy.get(element.LIST.LIST_RESULT_PAGE_TWO).click()
-    //cy.get(LIST.LIST_RESULT_ITEM_SEVENTEEN).click()
-    cy.xpath('//*[@class="a-size-medium a-color-base a-text-normal"]')
+  And('I select the first element of the search results', () =>{
+    cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
     .first()
     .click()
-    
+  
+  })
+
+
+  And('I go to the second page results', () =>{
+    cy.get(element.LIST.LIST_RESULT_PAGE_TWO).click()
+  })
+
+
+  And('I select the last element of the search results', () =>{
+    cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
+    .last()
+    .click()
+  
   })
 
   Then('I add the element to the cart',()=>{
 
     cy.get(element.ITEM.ADD_TO_CART_BUTTON).click()
+    cy.wait(500)
     cy.get("body").then($body => {
       if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
-          //evaluates as true
           cy.get(element.ITEM.AADDED_TO_CART_MESSAGE_CROSS ).click()
           cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
       } else {
@@ -57,47 +68,8 @@ Given('I Open the amazon Page and wait to load', () => {
     })
 
   })
-})
 
-
-
-/*
-
- 
-
- 
-    
-    
-  })
-
-  it('US2 Select last items by xpath', () =>{
-    cy.searchItem('dragon')
-    cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
-      .last()
-      .click()
-
-  })
-
-  it('US3: expect matches delivery Location', () => {
-    
-    cy.searchItem('doll')
-    cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
-     .first()
-     .click()
-
-     //make it ut, github actions
-    cy.compareText(element.MAINPAGE.LOCATION,ITEM.ITEM_DELIVERY_LOCATION)
-    
-
-    })
-
-    //run unit test validate code
-
-    it('US4: Add to cart item if it is avilable if not go back', () => {
-      cy.searchItem('dragon')
-      cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
-       .last()
-       .click()
+  Then('Add to cart the item if it is avilable if not go back', ()=>{
 
       cy.get("body").then($body => {
         if ($body.find(element.ITEM.ADD_TO_CART_BUTTON).length > 0) {   
@@ -108,12 +80,35 @@ Given('I Open the amazon Page and wait to load', () => {
         }
 
       });
+  })
 
-    })
+  Then('I expect matches delivery Location', ()=>{
+
+    Cypress.Commands.add('compareText', (obj1 , obj2) => {
+      const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
+         cy.get(obj1)
+           .then(($first) => {
+             firstText = normalizeText($first.text())
+           })
+     
+           cy.get(obj2)
+           .then(($second) => {
+              secondText = normalizeText($second.text())
+              expect(secondText, 'Item Delyvery').to.equal(firstText)
+           })
+           
+    });
+    cy.compareText(element.MAINPAGE.LOCATION,ITEM.ITEM_DELIVERY_LOCATION)
+
+  })
 
 
-//pom o paradigma
-// exp foward
+})
+
+
+
+/*
+
 
 //mismo tc para api y para ui (actions)
 })

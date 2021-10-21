@@ -26,27 +26,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 //New command for repetitive steps.
-Cypress.Commands.add('searchItem', (value) => {
-    cy.get('#twotabsearchtextbox').type(value)
-    cy.wait(500)
-    cy.get('#twotabsearchtextbox').click()
-    cy.get('#nav-search-submit-button').click()
-    
-})
 
-Cypress.Commands.add('compareText', (obj1 , obj2) => {
-    const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
-       cy.get(obj1)
-         .then(($first) => {
-           firstText = normalizeText($first.text())
-         })
-   
-         cy.get(obj2)
-         .then(($second) => {
-            secondText = normalizeText($second.text())
-            expect(secondText, 'Item Delyvery').to.equal(firstText)
-         })
-         
-   })
+
+
 
 

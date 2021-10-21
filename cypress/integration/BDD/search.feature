@@ -1,10 +1,32 @@
-Feature: Shopping on Tools QA 
-I want to shop on Tools QA Shopping Website
+Feature: Shopping on Amazon 
+I want to shop on amazon Website
 
-Scenario: Placing Order for 2 Shirts
-
+Scenario: Add item to the cart
 Given I Open the amazon Page and wait to load
 When I search for the value toy
-And I verify the cart and the locations state
-And I select the first element od the search results
+And I verify the cart and the locations are visible
+And I go to the second page results
+And I select the first element of the search results
 Then I add the element to the cart
+
+Scenario: Validate location
+Given I Open the amazon Page and wait to load
+When I search for the value toy
+And I select the first element of the search results
+Then I add the element to the cart
+Then I compare location and delivery location
+
+
+Scenario: Add to cart the item if it is avilable if not go back
+Given I Open the amazon Page and wait to load
+When I search for the value toy
+And I verify the cart and the locations are visible
+And I select the first element of the search results
+Then Add to cart the item if it is avilable if not go back
+
+Scenario: Add to cart the item and compare delivery Location
+Given I Open the amazon Page and wait to load
+When I search for the value toy
+And I verify the cart and the locations are visible
+And I select the first element of the search results
+Then I expect matches delivery Location
