@@ -24,7 +24,7 @@ Given('I Open the amazon Page and wait to load', () => {
       cy.get('#nav-search-submit-button').click()
       
     });
-    cy.searchItem('toy')
+    cy.searchItem('dragon')
     cy.wait(500)
   })
 
@@ -59,7 +59,7 @@ Given('I Open the amazon Page and wait to load', () => {
     cy.wait(500)
     cy.get("body").then($body => {
       if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
-          cy.get(element.ITEM.AADDED_TO_CART_MESSAGE_CROSS ).click()
+          cy.get(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).click()
           cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
       } else {
         cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
@@ -83,6 +83,17 @@ Given('I Open the amazon Page and wait to load', () => {
   })
 
   Then('I expect matches delivery Location', ()=>{
+
+
+    cy.get("body").then($body => {
+      if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
+          cy.get(element.ITEM.ADdED_TO_CART_MESSAGE_CROSS ).click()
+          cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+      } else {
+        cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+      }
+
+    })
 
     Cypress.Commands.add('compareText', (obj1 , obj2) => {
       const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()

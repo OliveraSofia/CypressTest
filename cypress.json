@@ -1,4 +1,8 @@
 {
+    
+        "env": {
+            "TAGS": "@test"
+        },
     "baseUrl": "https://www.amazon.com/",
     "testFiles": "**/*.{feature,features}",
     "reporter": "cypress-multi-reporters",

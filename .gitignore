@@ -4,3 +4,4 @@ package-lock.json
 /mochawesome-report
 /cypress/screenshots
 
+cypress/reports/mocha/mochawesome.json

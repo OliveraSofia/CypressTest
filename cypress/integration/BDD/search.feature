@@ -1,6 +1,7 @@
 Feature: Shopping on Amazon 
 I want to shop on amazon Website
 
+@test
 Scenario: Add item to the cart
 Given I Open the amazon Page and wait to load
 When I search for the value toy
@@ -14,7 +15,7 @@ Given I Open the amazon Page and wait to load
 When I search for the value toy
 And I select the first element of the search results
 Then I add the element to the cart
-Then I compare location and delivery location
+Then I expect matches delivery Location
 
 
 Scenario: Add to cart the item if it is avilable if not go back
