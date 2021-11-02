@@ -9,6 +9,8 @@ And I verify the cart and the locations are visible
 And I go to the second page results
 And I select the first element of the search results
 Then I add the element to the cart
+And Scroll down to complete load the page
+Then Verify Item has been added to the cart
 
 Scenario: Validate location
 Given I Open the amazon Page and wait to load

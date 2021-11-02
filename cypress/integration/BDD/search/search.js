@@ -13,7 +13,7 @@ var element = require('../../pages/pageObject')
 //paginacion
 Given('I Open the amazon Page and wait to load', () => {
   cy.visit('www.amazon.com')
-  cy.wait(500)
+  //cy.wait(500)
 
   When('I search for the value toy', () => {
     
@@ -53,6 +53,10 @@ Given('I Open the amazon Page and wait to load', () => {
   
   })
 
+  And('Scroll down to complete load the page', () =>{
+    cy.scrollTo("bottom")
+  })
+
   Then('I add the element to the cart',()=>{
 
     cy.get(element.ITEM.ADD_TO_CART_BUTTON).click()
@@ -67,6 +71,11 @@ Given('I Open the amazon Page and wait to load', () => {
 
     })
 
+  })
+
+  Then('Verify Item has been added to the cart', ()=> {
+
+    cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).should("not.be.a", "0")
   })
 
   Then('Add to cart the item if it is avilable if not go back', ()=>{
