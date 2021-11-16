@@ -5,3 +5,5 @@
 /cypress/screenshots
 
 cypress/reports/mocha/mochawesome.json
+cypress/reports/mochareports
+cypress/reports/mochareports/report.json
