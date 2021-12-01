@@ -2,15 +2,20 @@ Feature: Shopping on Amazon
 I want to shop on amazon Website
 
 @test
-Scenario: Add item to the cart
+Scenario Outline: Add item to the cart
 Given I Open the amazon Page and wait to load
-When I search for the value toy
+When I search for the "<dragon>"
 And I verify the cart and the locations are visible
 And I go to the second page results
 And I select the first element of the search results
 Then I add the element to the cart
 And Scroll down to complete load the page
 Then Verify Item has been added to the cart
+
+ Examples:
+      | value  | 
+      | dragon | 
+
 
 Scenario: Validate location
 Given I Open the amazon Page and wait to load

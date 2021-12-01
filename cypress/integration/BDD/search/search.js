@@ -15,10 +15,11 @@ Given('I Open the amazon Page and wait to load', () => {
   cy.visit('www.amazon.com')
   //cy.wait(500)
 
-  When('I search for the {value}', (value) => {
+  When('I search for the {word}', (value) => {
     
     cy.searchItem(value)
     cy.wait(500)
+    
   })
 
   And('I verify the cart and the locations are visible', () =>{

@@ -30,4 +30,10 @@
 
 
 
-
+Cypress.Commands.add('searchItem', (value) => {
+    cy.get('#twotabsearchtextbox').type(value)
+    cy.wait(500)
+    cy.get('#twotabsearchtextbox').click()
+    cy.get('#nav-search-submit-button').click()
+    
+  });
