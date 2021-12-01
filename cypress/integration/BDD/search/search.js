@@ -15,16 +15,9 @@ Given('I Open the amazon Page and wait to load', () => {
   cy.visit('www.amazon.com')
   //cy.wait(500)
 
-  When('I search for the value toy', () => {
+  When('I search for the {value}', (value) => {
     
-    Cypress.Commands.add('searchItem', (value) => {
-      cy.get('#twotabsearchtextbox').type(value)
-      cy.wait(500)
-      cy.get('#twotabsearchtextbox').click()
-      cy.get('#nav-search-submit-button').click()
-      
-    });
-    cy.searchItem('dragon')
+    cy.searchItem(value)
     cy.wait(500)
   })
 
