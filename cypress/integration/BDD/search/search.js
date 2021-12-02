@@ -19,7 +19,7 @@ Given('I Open the amazon Page and wait to load', () => {
     
     cy.searchItem(value)
     cy.wait(500)
-    
+
   })
 
   And('I verify the cart and the locations are visible', () =>{
@@ -51,25 +51,28 @@ Given('I Open the amazon Page and wait to load', () => {
     cy.scrollTo("bottom")
   })
 
-  Then('I add the element to the cart',()=>{
+  Then('I add the element to the cart and verify',()=>{
 
     cy.get(element.ITEM.ADD_TO_CART_BUTTON).click()
+
     cy.wait(500)
+
     cy.get("body").then($body => {
       if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
           cy.get(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).click()
           cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
-      } else {
-        cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
       }
-
+      else {
+        cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
+              }
+          
     })
 
-  })
 
-  Then('Verify Item has been added to the cart', ()=> {
-
+    cy.scrollTo("bottom")
     cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).should("not.be.a", "0")
+  
+
   })
 
   Then('Add to cart the item if it is avilable if not go back', ()=>{
@@ -86,33 +89,9 @@ Given('I Open the amazon Page and wait to load', () => {
   })
 
   Then('I expect matches delivery Location', ()=>{
-
-
-    cy.get("body").then($body => {
-      if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
-          cy.get(element.ITEM.ADdED_TO_CART_MESSAGE_CROSS ).click()
-          cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
-      } else {
-        cy.get(element.MAINPAGE.CART_ITEM_NUMBERS).contains('1')
-      }
-
-    })
-
-    Cypress.Commands.add('compareText', (obj1 , obj2) => {
-      const normalizeText = (inputString) => inputString.replace(/\s/g, '').toLowerCase()
-         cy.get(obj1)
-           .then(($first) => {
-             firstText = normalizeText($first.text())
-           })
-     
-           cy.get(obj2)
-           .then(($second) => {
-              secondText = normalizeText($second.text())
-              expect(secondText, 'Item Delyvery').to.equal(firstText)
-           })
-           
-    });
-    cy.compareText(element.MAINPAGE.LOCATION,ITEM.ITEM_DELIVERY_LOCATION)
+    cy.wait(500)
+    cy.scrollTo("top")
+    cy.compareText(element.MAINPAGE.LOCATION,element.ITEM.ITEM_DELIVERY_LOCATION)
 
   })
 

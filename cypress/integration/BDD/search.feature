@@ -1,40 +1,51 @@
 Feature: Shopping on Amazon 
 I want to shop on amazon Website
 
-@test
+
 Scenario Outline: Add item to the cart
 Given I Open the amazon Page and wait to load
-When I search for the "<dragon>"
+When I search for the "<value>"
 And I verify the cart and the locations are visible
 And I go to the second page results
 And I select the first element of the search results
-Then I add the element to the cart
-And Scroll down to complete load the page
-Then Verify Item has been added to the cart
+Then I add the element to the cart and verify
 
  Examples:
       | value  | 
       | dragon | 
 
-
-Scenario: Validate location
+@test
+Scenario Outline: Validate location
 Given I Open the amazon Page and wait to load
-When I search for the value toy
+When I search for the <value>
 And I select the first element of the search results
-Then I add the element to the cart
 Then I expect matches delivery Location
+Then I add the element to the cart and verify
 
 
-Scenario: Add to cart the item if it is avilable if not go back
+ Examples:
+      | value  | 
+      | cat | 
+
+
+Scenario Outline:  Add to cart the item if it is avilable if not go back
 Given I Open the amazon Page and wait to load
-When I search for the value toy
+When I search for the "<value>"
 And I verify the cart and the locations are visible
 And I select the first element of the search results
 Then Add to cart the item if it is avilable if not go back
 
-Scenario: Add to cart the item and compare delivery Location
+ Examples:
+      | value  | 
+      | dragon | 
+
+Scenario Outline:  Add to cart the item and compare delivery Location
 Given I Open the amazon Page and wait to load
-When I search for the value toy
+When I search for the "<value>"
 And I verify the cart and the locations are visible
 And I select the first element of the search results
 Then I expect matches delivery Location
+
+ Examples:
+      | value  | 
+      | dragon | 
