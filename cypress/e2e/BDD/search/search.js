@@ -27,16 +27,15 @@ Given('I Open the amazon Page and wait to load', () => {
     cy.get(element.MAINPAGE.LOCATION).should('be.visible')
   })
 
+  And('I go to the second page results', () =>{
+    cy.get(element.LIST.LIST_RESULT_PAGE_TWO).click()
+  })
+
   And('I select the first element of the search results', () =>{
     cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
     .first()
     .click()
   
-  })
-
-
-  And('I go to the second page results', () =>{
-    cy.get(element.LIST.LIST_RESULT_PAGE_TWO).click()
   })
 
 
