@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+
 
 import { Given , And , Then , When} from "cypress-cucumber-preprocessor/steps";
 import MAINPAGE from '../../pages/pageObject';
@@ -13,12 +13,12 @@ var element = require('../../pages/pageObject')
 //paginacion
 Given('I Open the amazon Page and wait to load', () => {
   cy.visit('www.amazon.com')
-  //cy.wait(500)
+  
 
   When('I search for the {word}', (value) => {
     
     cy.searchItem(value)
-    cy.wait(500)
+    cy.get(element.ITEM.PAGE_LOGO).should('be.visible')
 
   })
 
@@ -32,6 +32,7 @@ Given('I Open the amazon Page and wait to load', () => {
   })
 
   And('I select the first element of the search results', () =>{
+    
     cy.xpath(element.LIST.LIST_SEARCH_ITEMS_XPATH)
     .first()
     .click()
@@ -50,11 +51,16 @@ Given('I Open the amazon Page and wait to load', () => {
     cy.scrollTo("bottom")
   })
 
+  And('Verify Result Label is displayed', ()=>{
+    cy.get('.s-no-outline > .a-size-medium-plus').should('be.visible')
+  })
+
   Then('I add the element to the cart and verify',()=>{
 
-    cy.get(element.ITEM.ADD_TO_CART_BUTTON).click()
+    cy.get(element.ITEM.ADD_TO_CART_BUTTON).should('be.visible')
+    .click()
 
-    cy.wait(500)
+ 
 
     cy.get("body").then($body => {
       if ($body.find(element.ITEM.ADDED_TO_CART_MESSAGE_CROSS ).length > 0) {   
@@ -88,7 +94,7 @@ Given('I Open the amazon Page and wait to load', () => {
   })
 
   Then('I expect matches delivery Location', ()=>{
-    cy.wait(500)
+
     cy.scrollTo("top")
     cy.compareText(element.MAINPAGE.LOCATION,element.ITEM.ITEM_DELIVERY_LOCATION)
 

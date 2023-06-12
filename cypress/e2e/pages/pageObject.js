@@ -8,18 +8,16 @@ export const SEARCH ={
 
 export const LIST = {
 
-  LIST_RESULT_PAGE_TWO : '[href$=sr_pg_2]',
-  LIST_RESULT_ITEM_TWO : '[data-image-index=3]', 
-  LIST_RESULT_ITEM_FIVE : '[data-image-index=5]',
-  LIST_RESULT_ITEM_SEVENTEEN : '[data-image-index=93]',
-  LIST_SEARCH_ITEMS_XPATH : '//*[@class="a-size-medium a-color-base a-text-normal"]'
+
+  LIST_SEARCH_ITEMS_XPATH : '//*[@class="s-image"]'
 };
 
 export const ITEM = {
 
     ADD_TO_CART_BUTTON  : '#add-to-cart-button',
     ADDED_TO_CART_MESSAGE_CROSS : '#attach-close_sideSheet-link',
-    ITEM_DELIVERY_LOCATION : '#contextualIngressPtLabel_deliveryShortLine > :nth-child(2)'
+    ITEM_DELIVERY_LOCATION : '#contextualIngressPtLabel_deliveryShortLine > :nth-child(2)',
+    PAGE_LOGO : '#nav-logo-sprites'
     
 };
 

@@ -7,7 +7,8 @@ Given I Open the amazon Page and wait to load
 When I search for the <value>
 And I verify the cart and the locations are visible
 And I go to the second page results
-And I select the first element of the search results
+And Verify Result Label is displayed
+And I select the last element of the search results
 Then I add the element to the cart and verify
 
  Examples:
